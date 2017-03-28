@@ -16,6 +16,7 @@
 package com.jd.survey.web.pdf;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,12 +25,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jxl.format.Alignment;
-
 import org.apache.commons.validator.routines.BigDecimalValidator;
 import org.apache.commons.validator.routines.CurrencyValidator;
 import org.apache.commons.validator.routines.DateValidator;
-import org.jfree.util.Log;
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.CleanResults;
 import org.owasp.validator.html.Policy;
@@ -37,12 +35,10 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
-import com.jd.survey.domain.settings.DataSetItem;
 import com.jd.survey.domain.settings.Question;
 import com.jd.survey.domain.settings.QuestionColumnLabel;
 import com.jd.survey.domain.settings.QuestionOption;
 import com.jd.survey.domain.settings.QuestionRowLabel;
-import com.jd.survey.domain.settings.QuestionType;
 import com.jd.survey.domain.settings.SurveyDefinition;
 import com.jd.survey.domain.settings.SurveyDefinitionPage;
 import com.jd.survey.domain.survey.QuestionStatistic;
@@ -50,14 +46,13 @@ import com.jd.survey.domain.survey.SurveyStatistic;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Rectangle;
 import com.lowagie.text.Table;
-import com.lowagie.text.pdf.BarcodeEAN;
-import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
 
 @Component
@@ -421,7 +416,7 @@ public class StatisticsPdf  extends AbstractPdfView{
 		int rowIndex = 0;
 		for (QuestionOption option : question.getOptions()){
 			Boolean foundOption = false;
-			cell =new Cell(new Paragraph(option.getText(),normalFont));
+			cell =new Cell(new Paragraph(option.getText(),getChineseFont(24)));
 			//if ((rowIndex % 2) == 1) {cell.setBackgroundColor(new Color(244,244,244));}
 			statsTable.addCell(cell);
 			
@@ -449,7 +444,7 @@ public class StatisticsPdf  extends AbstractPdfView{
 							//single value question match on value
 							if (questionStatistic.getEntry()!=null && questionStatistic.getEntry().equals(option.getValue())){
 								foundOption = true;
-								cell =new Cell(new Paragraph(percentFormat.format(questionStatistic.getFrequency()),normalFont));
+								cell =new Cell(new Paragraph(percentFormat.format(questionStatistic.getFrequency()),getChineseFont(12)));
 								//if ((rowIndex % 2) == 1) {cell.setBackgroundColor(new Color(244,244,244));}
 								statsTable.addCell(cell);
 	
@@ -763,7 +758,13 @@ public class StatisticsPdf  extends AbstractPdfView{
 
 
 
-
+	private static final Font getChineseFont(float size) throws DocumentException, IOException {
+        Font FontChinese = null;
+        BaseFont bfChinese = BaseFont.createFont("STSong-Light",
+                    "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+        FontChinese = new Font(bfChinese, size, Font.NORMAL);
+        return FontChinese;
+	}
 
 
 
