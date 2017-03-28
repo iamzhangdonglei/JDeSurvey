@@ -262,11 +262,11 @@ public class PublicSurveyController {
 				return "accessDenied";
 			}
 
-			if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
-				//Attempt to access a survey from different IP Address 
-				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
-				return "accessDenied";
-			}
+//			if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
+//				//Attempt to access a survey from different IP Address 
+//				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+//				return "accessDenied";
+//			}
 			
 			List<SurveyPage> surveyPages = surveyService.surveyPage_getAll(surveyId,messageSource.getMessage(DATE_FORMAT, null, LocaleContextHolder.getLocale()));
 			uiModel.addAttribute("survey_base_path", "open");
@@ -312,11 +312,11 @@ public class PublicSurveyController {
 				}
 				
 				//Attempt to access a survey from different IP Address
-				if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
-					log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
-					return "accessDenied";
-				}
-				
+//				if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
+//					log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+//					return "accessDenied";
+//				}
+//				
 				if (surveyDefinition.getAllowMultipleSubmissions()) {
 					return "redirect:/open/" + encodeUrlPathSegment(survey.getTypeId().toString(), httpServletRequest) + "?list";	
 				}
@@ -344,10 +344,10 @@ public class PublicSurveyController {
 				}
 				
 				//Attempt to access a survey from different IP Address
-				if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
-					log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
-					return "accessDenied";
-				}
+//				if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
+//					log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+//					return "accessDenied";
+//				}
 				List<SurveyPage> surveyPages = surveyService.surveyPage_getAll(surveyId,messageSource.getMessage(DATE_FORMAT, null, LocaleContextHolder.getLocale()));
 				Short order  = (short) surveyPages.size();
 				return "redirect:/open/" + encodeUrlPathSegment(survey.getId().toString(), httpServletRequest) +"/" + encodeUrlPathSegment(order.toString(), httpServletRequest);
@@ -386,10 +386,10 @@ public class PublicSurveyController {
 			}
 			
 			//Attempt to access a survey from different IP Address
-			if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
-				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
-				return "accessDenied";
-			}
+//			if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
+//				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+//				return "accessDenied";
+//			}
 			
 			List<SurveyPage> surveyPages = surveyService.surveyPage_getAll(surveyId,messageSource.getMessage(DATE_FORMAT, null, LocaleContextHolder.getLocale()));
 			if (survey.getStatus() == SurveyStatus.I) {
@@ -450,10 +450,10 @@ public class PublicSurveyController {
 				return "accessDenied";
 			}
 			//Attempt to access a survey from different IP Address
-			if (!surveyPage.getSurvey().getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
-				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
-				return "accessDenied";
-			}
+//			if (!surveyPage.getSurvey().getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
+//				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+//				return "accessDenied";
+//			}
 			
 			List<SurveyPage> surveyPages = surveyService.surveyPage_getAll(surveyId,messageSource.getMessage(DATE_FORMAT, null, LocaleContextHolder.getLocale()));
 			uiModel.addAttribute("survey_base_path", "open");
@@ -497,10 +497,10 @@ public class PublicSurveyController {
 				return "accessDenied";
 			}
 			//Attempt to access a survey from different IP Address
-			if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
-				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
-				return "accessDenied";
-			}
+//			if (!survey.getIpAddress().equalsIgnoreCase(httpServletRequest.getLocalAddr())) {
+//				log.warn(UNAUTHORIZED_ATTEMPT_TO_ACCESS_SURVEY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+//				return "accessDenied";
+//			}
 			
 			if(proceedAction!=null){ //next button
 				List<SurveyPage> surveyPages = surveyService.surveyPage_getAll(surveyPage.getSurvey().getId(),messageSource.getMessage(DATE_FORMAT, null, LocaleContextHolder.getLocale()));

@@ -19,7 +19,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 
 					
 					
-<context:property-placeholder location="file:/JDESURVEY/config/configuration.properties"/>				
+<context:property-placeholder location="file:C:/JDESURVEY/config/configuration.properties"/>				
 				
     <!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
     <context:component-scan base-package="com.jd.survey.web" use-default-filters="false">

@@ -18,7 +18,7 @@
 	
 	<!-- ******************************************************************** -->
 	<!-- PropertyConfigurer for the DAO -->
-	<context:property-placeholder location="file:/JDESURVEY/config/configuration.properties"/>
+	<context:property-placeholder location="file:C:/JDESURVEY/config/configuration.properties"/>
 		
 	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
