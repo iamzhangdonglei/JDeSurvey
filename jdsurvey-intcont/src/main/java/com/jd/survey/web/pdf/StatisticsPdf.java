@@ -59,10 +59,6 @@ import com.lowagie.text.pdf.PdfWriter;
 public class StatisticsPdf  extends AbstractPdfView{
 	private static final String  POLICY_FILE_LOCATION="/antisamy-tinymce-1-4-4-strict.xml"; 
 	
-	private static final Font titleFont = new Font(Font.HELVETICA, 11, Font.BOLD, new Color(0,68,136));
-	private static final Font subTitleFont = new Font(Font.HELVETICA, 10, Font.BOLD, new Color(0,68,136));
-	private static final Font boldedFont = new Font(Font.HELVETICA, 9, Font.BOLD);
-	private static final Font normalFont = new Font(Font.HELVETICA, 9, Font.NORMAL);
 	
 	
 	@Override
@@ -416,7 +412,7 @@ public class StatisticsPdf  extends AbstractPdfView{
 		int rowIndex = 0;
 		for (QuestionOption option : question.getOptions()){
 			Boolean foundOption = false;
-			cell =new Cell(new Paragraph(option.getText(),getChineseFont(24)));
+			cell =new Cell(new Paragraph(option.getText(),normalFont));
 			//if ((rowIndex % 2) == 1) {cell.setBackgroundColor(new Color(244,244,244));}
 			statsTable.addCell(cell);
 			
@@ -444,7 +440,7 @@ public class StatisticsPdf  extends AbstractPdfView{
 							//single value question match on value
 							if (questionStatistic.getEntry()!=null && questionStatistic.getEntry().equals(option.getValue())){
 								foundOption = true;
-								cell =new Cell(new Paragraph(percentFormat.format(questionStatistic.getFrequency()),getChineseFont(12)));
+								cell =new Cell(new Paragraph(percentFormat.format(questionStatistic.getFrequency()),normalFont));
 								//if ((rowIndex % 2) == 1) {cell.setBackgroundColor(new Color(244,244,244));}
 								statsTable.addCell(cell);
 	
@@ -756,15 +752,24 @@ public class StatisticsPdf  extends AbstractPdfView{
 
 
 
-
-
-	private static final Font getChineseFont(float size) throws DocumentException, IOException {
-        Font FontChinese = null;
-        BaseFont bfChinese = BaseFont.createFont("STSong-Light",
-                    "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-        FontChinese = new Font(bfChinese, size, Font.NORMAL);
-        return FontChinese;
+	private static final Font titleFont = new Font(getChineseFont(), 11, Font.BOLD, new Color(0,68,136));
+	private static final Font subTitleFont = new Font(getChineseFont(), 10, Font.BOLD, new Color(0,68,136));
+	private static final Font boldedFont = new Font(getChineseFont(), 9, Font.BOLD);
+	private static final Font normalFont = new Font(getChineseFont(), 9, Font.NORMAL);
+	
+	public static final BaseFont getChineseFont()  {
+		 BaseFont bfChinese = null;
+		try{
+			  bfChinese = BaseFont.createFont("STSong-Light",
+	                    "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+		}catch(Exception e){
+			
+		}
+       
+        return bfChinese;
 	}
+
+
 
 
 

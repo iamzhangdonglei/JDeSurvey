@@ -53,9 +53,9 @@ public class SurveyPdf  extends AbstractPdfView{
 	
 	private static final String  POLICY_FILE_LOCATION="/antisamy-tinymce-1-4-4-strict.xml"; 
 	
-	private static final Font titleFont = new Font(Font.HELVETICA, 11, Font.BOLD, new Color(0,68,136));
-	private static final Font boldedFont = new Font(Font.HELVETICA, 9, Font.BOLD);
-	private static final Font normalFont = new Font(Font.HELVETICA, 9, Font.NORMAL);
+	private static final Font titleFont = new Font(StatisticsPdf.getChineseFont(), 11, Font.BOLD, new Color(0,68,136));
+	private static final Font boldedFont = new Font(StatisticsPdf.getChineseFont(), 9, Font.BOLD);
+	private static final Font normalFont = new Font(StatisticsPdf.getChineseFont(), 9, Font.NORMAL);
 	
 	@Override
 	protected void buildPdfDocument(Map model, Document document,
