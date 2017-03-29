@@ -310,13 +310,13 @@
 													<c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
 														<c:if test="${questionAnswer.stringAnswerValue eq  option.value}">
 															<label style="margin-right:4em;display: inline-block;">
-																<input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue[${loop2}]" value="${option.value}" class="checkbox" checked="true"  disabled="true"/>
+																<input type="radio"   value="${option.value}" class="checkbox" checked="true"  disabled="true"/>
 																<c:out value="${option.text}"/>
 															</label> 
 														</c:if>
 														<c:if test="${questionAnswer.stringAnswerValue ne  option.value}">
 															<label style="margin-right:4em;display: inline-block;">
-																<input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue[${loop2}]" value="${option.value}" class="checkbox"  disabled="true"/>
+																<input type="radio"   value="${option.value}" class="checkbox"  disabled="true"/>
 																<c:out value="${option.text}"/>
 															</label>
 														</c:if>
