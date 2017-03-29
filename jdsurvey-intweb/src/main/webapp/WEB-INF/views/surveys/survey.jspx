@@ -367,13 +367,13 @@
 												<c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
 													<c:if test="${questionAnswer.stringAnswerValue eq  option.value}">
 														<label style="margin-right:4em;display: inline-block;">
-															<input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue[${loop2}]" value="${option.value}" class="checkbox" checked="true"  disabled="true"/>
+															<input type="radio" value="${option.value}" class="checkbox" checked="true"  disabled="true"/>
 															<c:out value="${option.text}"/>
 														</label> 
 													</c:if>
 													<c:if test="${questionAnswer.stringAnswerValue ne  option.value}">
 														<label style="margin-right:4em;display: inline-block;">
-															<input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue[${loop2}]" value="${option.value}" class="checkbox"  disabled="true"/>
+															<input type="radio" value="${option.value}" class="checkbox"  disabled="true"/>
 															<c:out value="${option.text}"/>
 														</label>
 													</c:if>
@@ -591,12 +591,12 @@
 													<img src="${smiley_image_url}" alt="${option.text}" />
 													
 													<c:if test="${questionAnswer.stringAnswerValue eq  option.value}">
-														<input  type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" class="checkbox" disabled="disabled" checked="true" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
+														<input  type="radio"   value="${option.value}" class="checkbox" disabled="disabled" checked="true" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
 														<label for="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}"><c:out value="${option.text}"/></label></input>
 													</c:if>
 													
 													<c:if test="${questionAnswer.stringAnswerValue ne  option.value}">
-															<input type="radio" name="questionAnswers[${loop2.index}].stringAnswerValue" value="${option.value}" class="checkbox" disabled="disabled" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
+															<input type="radio"   value="${option.value}" class="checkbox" disabled="disabled" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
 															<label for="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}"><c:out value="${option.text}"/></label></input>
 													</c:if>
 													</div>
@@ -610,12 +610,12 @@
 													<img src="${smiley_image_url}" alt="${option.text}" />
 													
 													<c:if test="${questionAnswer.stringAnswerValue eq  option.value}">
-														<input  type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" class="checkbox" disabled="disabled" checked="true" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
+														<input  type="radio"  value="${option.value}" class="checkbox" disabled="disabled" checked="true" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
 														<label for="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}"><c:out value="${option.text}"/></label></input>
 													</c:if>
 													
 													<c:if test="${questionAnswer.stringAnswerValue ne  option.value}">
-															<input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" class="checkbox" disabled="disabled" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
+															<input type="radio"  value="${option.value}" class="checkbox" disabled="disabled" id="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}">
 															<label for="${QuestionAndPageNumb} ${questionNumber} ${optionText} ${loop2.index}"><c:out value="${option.text}"/></label></input>
 													</c:if>
 													</div>
