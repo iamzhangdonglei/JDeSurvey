@@ -134,6 +134,69 @@ public class PublicSurveyController {
 		}	
 	}
 	
+	@RequestMapping(value = "/{id}", params = "list", produces = "text/html")
+	public String listSurveyEntries(@PathVariable("id") Long surveyDefinitionId, 
+									Model uiModel,
+							 		Principal principal,
+							 		HttpServletRequest httpServletRequest) {
+		log.info("listSurveyEntries of type id=" + surveyDefinitionId);
+		try{
+			SurveyDefinition surveyDefinition =surveySettingsService.surveyDefinition_findById(surveyDefinitionId);
+			if (!surveyDefinition.getIsPublic()) {//survey definition not open to the public
+				//attempt to access a private survey definition from a public open url 
+				log.warn(SURVEY_NOT_PUBLIC_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+				return "accessDenied";
+			}
+			
+			Set<Survey> userSurveyEntries= surveyService.survey_findUserEntriesByTypeIdAndIpAddress(surveyDefinitionId,httpServletRequest.getRemoteAddr());
+			if (surveyDefinition.getAllowMultipleSubmissions()) {//allow multiple submissions of this survey from the same client IP Address
+				if (userSurveyEntries == null || userSurveyEntries.size() == 0) {	//No User entries for this survey, create a new one
+					Survey survey =surveyService.survey_create(surveyDefinitionId,null,httpServletRequest.getRemoteAddr());
+					return "redirect:/open/" + encodeUrlPathSegment(survey.getId().toString(), httpServletRequest) +"/1";
+				} 
+				else {//entries found 
+					if (userSurveyEntries.size() ==1) {
+						//only on entry found 
+						Iterator<Survey> it = userSurveyEntries.iterator();
+						Survey survey =it.next(); // get the first and only element in the set
+						if (survey.getStatus() == SurveyStatus.I || survey.getStatus() == SurveyStatus.R) {	//survey is incomplete or reopened
+							//go directly to the survey first page
+							return "redirect:/open/" + encodeUrlPathSegment(survey.getId().toString(), httpServletRequest) +"/1";	
+						}
+					}
+					//multiple entries found
+					uiModel.addAttribute("survey_base_path", "open");
+					uiModel.addAttribute("surveyDefinition", surveyDefinition);
+					uiModel.addAttribute("userSurveyEntries", userSurveyEntries);
+					return "surveys/entries";
+				}
+			}
+			else {
+				//do not allow multiple submissions of this survey from the same client IP Address
+				if (userSurveyEntries.size() ==1) {
+						//only on entry found 
+						Iterator<Survey> it = userSurveyEntries.iterator();
+						Survey survey =it.next(); // get the first and only element in the set
+						if (survey.getStatus() == SurveyStatus.S) {	//survey is incomplete or reopened
+							// you have already completed the survey
+							log.warn(IP_ADDRESS_USED_ALREADY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+							return "surveyAlreadyTaken";
+						}
+				}else if(userSurveyEntries.size() >1){
+					// you have already completed the survey
+					log.warn(IP_ADDRESS_USED_ALREADY_WARNING_MESSAGE + httpServletRequest.getPathInfo() + FROM_IP_WARNING_MESSAGE + httpServletRequest.getLocalAddr());
+					return "surveyAlreadyTaken";
+				}
+				uiModel.addAttribute("survey_base_path", "open");
+				uiModel.addAttribute("surveyDefinition", surveyDefinition);
+				return "surveys/show";
+			}			
+
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+			throw (new RuntimeException(e));
+		}
+	}	
 	
 	
 	/**
@@ -143,8 +206,8 @@ public class PublicSurveyController {
 	 * @param httpServletRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}", params = "list", produces = "text/html")
-	public String listSurveyEntries(@PathVariable("id") Long surveyDefinitionId, 
+	@RequestMapping(value = "/{id}", params = "start", produces = "text/html")
+	public String startSurveyEntries(@PathVariable("id") Long surveyDefinitionId, 
 									Model uiModel,
 							 		Principal principal,
 							 		HttpServletRequest httpServletRequest) {

@@ -19,6 +19,11 @@
         <put-attribute name="body" value="/WEB-INF/views/surveys/survey.jspx"/>
     </definition>
     
+      <definition name="surveys/show" extends="default" >
+        <put-attribute name="activeTab" value ="surveys" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/show.jspx"/>
+    </definition>
+    
     
     <definition name="surveys/page" extends="default" >
     	<put-attribute name="activeTab" value ="surveys" cascade="true"/>
