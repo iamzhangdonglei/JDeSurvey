@@ -8,8 +8,8 @@ database.generateDdl=false
 database.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
 
 #Base URL
-external.base.url=danielzhang:8080/surveys
-internal.base.url=danielzhang:8080/admin
+external.base.url=localhost:8080/surveys
+internal.base.url=localhost:8080/admin
 
 #MSSQL
 #database.maxPoolSize=10

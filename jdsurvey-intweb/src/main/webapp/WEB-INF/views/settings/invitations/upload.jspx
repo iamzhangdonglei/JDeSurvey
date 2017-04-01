@@ -61,9 +61,11 @@
 		        	<spring:message code="com.jd.survey.domain.settings.invitation_label_plural" var="survDef_label" htmlEscape="false" />
 		        	<spring:message code="to_upload_file_message" arguments="${survDef_label}" var="fileToUpload" htmlEscape="false" /> 
 		        	<spring:message code="error_upload_file" var="file_error" htmlEscape="false" />
+		        	<spring:message code="error_mail_connect" var="connect_error" htmlEscape="false" />
 		        	<label class="grid-4-12"  for="file"><c:out value="${fileToUpload}"/></label>
 		        	<input class="grid-6-12"  type="file" name="file" id="file" size="65%"/>
 		        	<c:if test="${emptyFileError}"><span class="validationMsg validationAlign3"><c:out value="${file_error}"/></span></c:if>
+		        	<c:if test="${connectMailError}"><span class="validationMsg validationAlign3"><c:out value="${connect_error}"/></span></c:if>
 		        </div>
 		     
 					<!-- NOT USED???????????????????????????  -->

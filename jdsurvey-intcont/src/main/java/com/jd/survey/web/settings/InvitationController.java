@@ -301,7 +301,7 @@ public class InvitationController {
 				String emailContent;
 				
 				if (!file.isEmpty() && ((file.getContentType().equalsIgnoreCase("application/vnd.ms-excel")) || (file.getContentType().equalsIgnoreCase("text/csv")) || ( file.getContentType().equalsIgnoreCase("text/plain")))) {
-					CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()));
+					CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream(),"UTF-8"));
 					String [] nextLine;
 					nextLine = csvReader.readNext(); //skip the first row the continue on with loop
 					
@@ -378,7 +378,12 @@ public class InvitationController {
 				return "redirect:/settings/invitations/list?id=" + encodeUrlPathSegment(surveyDefinitionId.toString(), httpServletRequest);
 			}
 		}
-		catch (Exception e) {
+		catch (java.net.ConnectException ce){
+			log.error(ce.getMessage(), ce);
+			uiModel.addAttribute("connectMailError", true);
+			return "settings/invitations/upload";
+			
+		}catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}

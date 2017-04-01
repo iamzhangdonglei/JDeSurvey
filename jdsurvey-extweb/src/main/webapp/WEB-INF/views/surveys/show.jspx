@@ -12,7 +12,7 @@
     <div id="main-content"  style="margin:50px">	
 		<c:out value="${surveyDefinition.description}" escapeXml="false"/>
 							
-		<spring:url value="/open/${surveyDefinition.id}?start" var="form_url" />
+		<c:url value="/open/${surveyDefinition.id}?start" var="form_url" />
 		<a href="${form_url}" title="${fn:escapeXml(action_label)}: ${surveyDefinition.id}" >开始测评	</a>	
 							
     </div>	

@@ -134,7 +134,7 @@ public class SurveyDefinitionController {
 			QRCodeWriter writer = new QRCodeWriter();
 			BitMatrix bitMatrix = null;
 			try {
-			    bitMatrix = writer.encode(surveyLink, BarcodeFormat.QR_CODE, 600, 600);
+			    bitMatrix = writer.encode(surveyLink, BarcodeFormat.QR_CODE, 500, 500);
 			    MatrixToImageWriter.writeToStream(bitMatrix, "png", servletOutputStream);
 			 
 			} catch (WriterException e){
